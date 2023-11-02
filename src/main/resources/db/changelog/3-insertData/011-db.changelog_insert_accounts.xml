@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="11" author="Vitalii_Saienko">
+        <sql>
+            INSERT INTO accounts (id, client_id, account_type, account_status, account_balance, currency_code, created_at, updated_at)
+            VALUES
+                (UNHEX('a1c9e53b1b7c45a48d354f5de2f088e0'), UNHEX('c7b38e48e5e74f688ba1715f1dcb31d1'), 0, 0, 3000.00, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                (UNHEX('a2a4ff072cf94c7b8e159e2dcb67fe8b'), UNHEX('f1b872b6eb294cb9bf0f36f57ad31712'), 1, 0, 3000.00, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                (UNHEX('a3bcb4f734d642aa84824be1c9bb6bb7'), UNHEX('6c0c5b68bf0d4646a63d63f4a71715d3'), 0, 0, 3000.00, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                (UNHEX('a497500a7cb14c15982caa67f6d72f92'), UNHEX('29f5b116d35f41715e4a40eb48a63f34'), 1, 0, 3000.00, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                (UNHEX('a59e6991c16a4f9b9f046fda8192d61e'), UNHEX('672032a78cd64e1715b078d5aa11b3b5'), 0, 0, 3000.00, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                (UNHEX('a6c9e53b1b7c45a48d354f5de2f088e0'), UNHEX('c7b38e48e5e74f688ba1715f1dcb31d6'), 1, 0, 3000.00, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                (UNHEX('a7a4ff072cf94c7b8e159e2dcb67fe8b'), UNHEX('f1b872b6eb294cb9bf0f36f57ad31717'), 0, 0, 3000.00, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                (UNHEX('a8bcb4f734d642aa84824be1c9bb6bb7'), UNHEX('6c0c5b68bf0d4646a63d63f4a71715d8'), 1, 0, 3000.00, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                (UNHEX('a997500a7cb14c15982caa67f6d72f92'), UNHEX('29f5b116d35f41715e4a40eb48a63f39'), 0, 0, 3000.00, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                (UNHEX('a10e6991c16a4f9b9f046fda8192d61e'), UNHEX('672032a78cd64e1715b078d5aa11b310'), 1, 0, 3000.00, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                (UNHEX('a10e6991c16a4f9b9f046fda0510d611'), UNHEX('672032a78cd64e1715b078d5aa11b310'), 1, 1, 0.00, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                (UNHEX('a10e6991c16a4f9b9f046fda0510d612'), UNHEX('672032a78cd64e1715b078d5aa11b310'), 1, 1, 0.00, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+        </sql>
+    </changeSet>
+</databaseChangeLog>

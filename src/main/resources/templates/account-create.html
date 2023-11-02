@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Account creation page</title>
+</head>
+<body>
+<h1>Creating new account</h1>
+
+<!-- Добавьте этот код для вывода сообщения об ошибке -->
+<div th:if="${param.error}">
+    <p class="error-message" th:text="${param.error}" style="color: red"></p>
+</div>
+
+<form action="/account/create" method="post" th:object="${accountCreationRequestDto}">
+    <label for="clientId">Client ID:</label>
+    <input type="text" name="clientId" id="clientId" required><br>
+<!--    <div th:if="${#fields.hasErrors('clientId')}" th:errors="*{clientId}" class="error-message"></div>-->
+
+    <label for="accountType">Account Type:</label>
+    <input type="text" name="accountType" id="accountType" required><br>
+<!--    <div th:if="${#fields.hasErrors('accountType')}" th:errors="*{accountType}" class="error-message"></div>-->
+
+    <label for="currencyCode">Currency Code:</label>
+    <input type="text" name="currencyCode" id="currencyCode" required><br>
+<!--    <div th:if="${#fields.hasErrors('currencyCode')}" th:errors="*{currencyCode}" class="error-message"></div>-->
+
+    <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>

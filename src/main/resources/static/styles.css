@@ -1,0 +1,39 @@
+body {
+    background-color: #aba8a8; /* Светло-серый цвет фона */
+    text-align: center; /* Центрирование текста по горизонтали */
+    font-size: 20px; /* Размер шрифта 20px */
+    justify-content: center;
+    display: grid;
+}
+
+.link {
+    display: block; /* Делаем ссылки блочными элементами, чтобы они шли друг под другом */
+    text-decoration: none; /* Убираем подчеркивание для ссылок */
+    padding: 20px; /* Расстояние 20px внутри блока ссылки */
+    color: #000; /* Черный цвет текста ссылки */
+    border: 2px solid #f0f0f0; /* 2px рамка вокруг ссылки с серым цветом */
+    margin: 10px; /* Расстояние между блоками ссылок */
+    font-size: 23px; /* Размер шрифта 23px */
+    max-width: 500px;
+    cursor: pointer; /* Изменение курсора на указатель при наведении */
+    position: relative; /* Добавляем относительное позиционирование */
+    transition: background-color 0.3s; /* Плавное изменение цвета фона при наведении */
+}
+
+/* Псевдоэлемент для фона внутри рамки */
+.link::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent; /* Начальный цвет фона (прозрачный) */
+    z-index: -1; /* Устанавливаем фон "под" текстом */
+    transition: background-color 0.3s; /* Плавное изменение цвета фона при наведении */
+}
+
+/* Изменение цвета фона внутри рамки при наведении */
+.link:hover::before {
+    background-color: #fff; /* Белый цвет фона при наведении курсора */
+}

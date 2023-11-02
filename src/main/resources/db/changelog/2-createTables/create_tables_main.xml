@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <include file="db/changelog/2-createTables/002-db.changelog_create_managers_table.xml"/>
+    <include file="db/changelog/2-createTables/003-db.changelog_create_products_table.xml"/>
+    <include file="db/changelog/2-createTables/004-db.changelog_create_clients_table.xml"/>
+    <include file="/db/changelog/2-createTables/005-db.changelog_create_accounts_table.xml"/>
+    <include file="/db/changelog/2-createTables/006-db.changelog_create_agreements_table.xml"/>
+    <include file="db/changelog/2-createTables/007-db.changelog_create_transactions_table.xml"/>
+
+</databaseChangeLog>

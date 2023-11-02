@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="4" author="Vitalii_Saienko">
+        <createTable tableName="agreements">
+            <column name="id" type="BINARY(16)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="account_id" type="BINARY(16)">
+                <constraints foreignKeyName="fk_account_id" referencedTableName="accounts" referencedColumnNames="id"/>
+            </column>
+            <column name="product_id" type="BINARY(16)">
+                <constraints foreignKeyName="fk_product_id" referencedTableName="products" referencedColumnNames="id"/>
+            </column>
+            <column name="interest_rate" type="NUMERIC(6, 4)"/>
+            <column name="agreement_status" type="INT"/>
+            <column name="agreement_sum" type="NUMERIC(15, 2)"/>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

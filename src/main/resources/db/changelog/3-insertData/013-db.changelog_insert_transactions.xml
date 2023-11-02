@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="12" author="Vitalii_Saienko">
+        <sql>
+            INSERT INTO transactions (id, debit_account_id, credit_account_id, transaction_status, amount, transaction_description, created_at)
+            VALUES
+                (UNHEX('f7b38e48e5e74f688ba9036f1dcb31d1'), UNHEX('a1c9e53b1b7c45a48d354f5de2f088e0'), UNHEX('a6c9e53b1b7c45a48d354f5de2f088e0'), 2, 1000.00, 'Payment for Purchase', CURRENT_TIMESTAMP),
+                (UNHEX('f1b872b6eb294cb9bf0f36f57ad39562'), UNHEX('a2a4ff072cf94c7b8e159e2dcb67fe8b'), UNHEX('a7a4ff072cf94c7b8e159e2dcb67fe8b'), 2, 1500.00, 'Salary Deposit', CURRENT_TIMESTAMP),
+                (UNHEX('fc0c5b68bf0d4646a63d63f4a79312d3'), UNHEX('a3bcb4f734d642aa84824be1c9bb6bb7'), UNHEX('a8bcb4f734d642aa84824be1c9bb6bb7'), 2, 800.00, 'Online Shopping', CURRENT_TIMESTAMP),
+                (UNHEX('f9f5b116d35f48238e4a40eb48a63f34'), UNHEX('a497500a7cb14c15982caa67f6d72f92'), UNHEX('a997500a7cb14c15982caa67f6d72f92'), 2, 1200.00, 'Loan Payment', CURRENT_TIMESTAMP),
+                (UNHEX('f72032a78cd64e6182b078d5aa11b3b5'), UNHEX('a59e6991c16a4f9b9f046fda8192d61e'), UNHEX('a10e6991c16a4f9b9f046fda8192d61e'), 2, 900.00, 'Grocery Shopping', CURRENT_TIMESTAMP),
+                (UNHEX('f7b38e48e5e74f688ba9036f1dcb31d6'), UNHEX('a6c9e53b1b7c45a48d354f5de2f088e0'), UNHEX('a1c9e53b1b7c45a48d354f5de2f088e0'), 2, 1300.00, 'Transfer to Savings', CURRENT_TIMESTAMP),
+                (UNHEX('f1b872b6eb294cb9bf0f36f57ad39567'), UNHEX('a7a4ff072cf94c7b8e159e2dcb67fe8b'), UNHEX('a2a4ff072cf94c7b8e159e2dcb67fe8b'), 2, 1100.00, 'Online Bill Payment', CURRENT_TIMESTAMP),
+                (UNHEX('fc0c5b68bf0d4646a63d63f4a79312d8'), UNHEX('a8bcb4f734d642aa84824be1c9bb6bb7'), UNHEX('a3bcb4f734d642aa84824be1c9bb6bb7'), 2, 850.00, 'Restaurant Dinner', CURRENT_TIMESTAMP),
+                (UNHEX('f9f5b116d35f48238e4a40eb48a63f39'), UNHEX('a997500a7cb14c15982caa67f6d72f92'), UNHEX('a497500a7cb14c15982caa67f6d72f92'), 2, 1400.00, 'Monthly Mortgage Payment', CURRENT_TIMESTAMP),
+                (UNHEX('f72032a78cd64e6182b078d5aa11b310'), UNHEX('a10e6991c16a4f9b9f046fda8192d61e'), UNHEX('a59e6991c16a4f9b9f046fda8192d61e'), 2, 950.00, 'Utility Bill Payment', CURRENT_TIMESTAMP);
+
+        </sql>
+    </changeSet>
+</databaseChangeLog>

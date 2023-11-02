@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="8" author="Vitalii_Saienko">
+        <sql>
+            INSERT INTO products (id, manager_id, product_name, product_status, currency_code, interest_rate, product_limit, created_at, updated_at)
+            VALUES
+                (UNHEX('c7b38e48e5e74f688ba1634f1dcb31d1'), UNHEX('c7b38e48e5e74f688ba9036f1dcb31d1'), 'Gold Credit Card', 0, 0, 0.0500, 10000.00, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                (UNHEX('f1b872b6eb294cb9bf0f36f57ad31632'), UNHEX('c7b38e48e5e74f688ba9036f1dcb31d1'), 'CashBack Credit Card', 0, 0, 0.0450, 10500.00, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                (UNHEX('6c0c5b68bf0d1634a63d63f4a79312d3'), UNHEX('c7b38e48e5e74f688ba9036f1dcb31d1'), 'Savings Deposit Future', 0, 0, 0.0350, 500000.00, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                (UNHEX('29f5b116d35f16348e4a40eb48a63f34'), UNHEX('89c9e53b1b7c45a48d354f5de2f088e0'), 'Family Savings Account', 0, 0, 0.0400, 700000.00, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                (UNHEX('672032a78cd64e1634b078d5aa11b3b5'), UNHEX('89c9e53b1b7c45a48d354f5de2f088e0'), 'Smart Investor', 0, 0, 0.0520, 15000000.00, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                (UNHEX('c7b38e48e5e74f688ba1634f1dcb31d6'), UNHEX('f1b872b6eb294cb9bf0f36f57ad39560'), 'Risky Investor', 0, 0, 0.1500, 35000000.00, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                (UNHEX('f1b872b6eb294cb9bf0f36f57ad31637'), UNHEX('f1b872b6eb294cb9bf0f36f57ad39560'), 'Auto Loan', 0, 0, 0.1170, 200000.00, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                (UNHEX('6c0c5b68bf0d4646a63d63f4a71634d8'), UNHEX('6c0c5b68bf0d4646a63d63f4a79312d3'), 'Home Mortgage Loan', 0, 0, 0.0530, 3000000.00, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                (UNHEX('29f5b116d35f41634e4a40eb48a63f39'), UNHEX('6c0c5b68bf0d4646a63d63f4a79312d3'), 'Online Banking', 0, 0, 0.0300, 20000.00, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                (UNHEX('672032a78cd64e1634b078d5aa11b310'), UNHEX('d8a4ff072cf94c7b8e159e2dcb67fe8b'), 'Online Banking Plus', 0, 0, 0.0100, 15000.00, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+        </sql>
+    </changeSet>
+</databaseChangeLog>

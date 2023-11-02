@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="0" author="Vitalii_Saienko">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="managers"/>
+            <tableExists tableName="products"/>
+            <tableExists tableName="clients"/>
+            <tableExists tableName="accounts"/>
+            <tableExists tableName="agreements"/>
+            <tableExists tableName="transactions"/>
+        </preConditions>
+
+        <!-- Удаление внешних ключей -->
+        <sql>
+            ALTER TABLE products DROP FOREIGN KEY fk_manager_id;
+            ALTER TABLE clients DROP FOREIGN KEY fk_manager-client_id;
+            ALTER TABLE accounts DROP FOREIGN KEY fk_client_id;
+            ALTER TABLE agreements DROP FOREIGN KEY fk_account_id;
+            ALTER TABLE agreements DROP FOREIGN KEY fk_product_id;
+            ALTER TABLE transactions DROP FOREIGN KEY fk_debit_account_id;
+            ALTER TABLE transactions DROP FOREIGN KEY fk_credit_account_id;
+        </sql>
+
+        <dropTable tableName="managers"/>
+        <dropTable tableName="products"/>
+        <dropTable tableName="clients"/>
+        <dropTable tableName="accounts"/>
+        <dropTable tableName="agreements"/>
+        <dropTable tableName="transactions"/>
+    </changeSet>
+
+
+</databaseChangeLog>

@@ -1,0 +1,15 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+           http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <property name="url" value="jdbc:mysql://localhost:3306/bankappschematest"/>
+    <property name="username" value="root"/>
+    <property name="password" value="100500VseBudeDobre"/>
+
+    <include file="/db/changelog/1-dropTables/001-db.changelog_drop_tables.xml"/>
+    <include file="/db/changelog/2-createTables/create_tables_main.xml"/>
+    <include file="/db/changelog/3-insertData/insert_data_main.xml"/>
+
+
+</databaseChangeLog>

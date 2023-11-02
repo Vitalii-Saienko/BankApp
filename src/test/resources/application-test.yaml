@@ -1,0 +1,19 @@
+spring:
+
+  main:
+    banner-mode: off
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/bankappschematest
+    username: root
+    password: 100500VseBudeDobre
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: none
+
+  liquibase:
+    enabled: true
+    change-log: classpath:db.changelog-master-test.xml

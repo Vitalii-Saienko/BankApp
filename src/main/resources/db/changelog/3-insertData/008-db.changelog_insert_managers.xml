@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="7" author="Vitalii_Saienko">
+        <sql>
+            INSERT INTO managers (id, first_name, last_name, manager_status, created_at, updated_at)
+            VALUES
+                (UNHEX('c7b38e48e5e74f688ba9036f1dcb31d1'), 'Michael', 'Scott', 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                (UNHEX('89c9e53b1b7c45a48d354f5de2f088e0'), 'Alex', 'Matv', 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                (UNHEX('f1b872b6eb294cb9bf0f36f57ad39560'), 'Sergio', 'Syns', 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                (UNHEX('d8a4ff072cf94c7b8e159e2dcb67fe8b'), 'Alex', 'Gubs', 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+                (UNHEX('6c0c5b68bf0d4646a63d63f4a79312d3'), 'Oksana', 'Lavrough', 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
