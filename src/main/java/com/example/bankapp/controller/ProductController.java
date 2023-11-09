@@ -7,6 +7,7 @@ import com.example.bankapp.exception.database_exception.DatabaseAccessException;
 import com.example.bankapp.service.util.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -21,16 +22,19 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('MANAGER')")
     public ProductDto getProductById(@PathVariable("id") String id) {
         return productService.getProductById(UUID.fromString(id));
     }
 
     @PostMapping("/create")
+    @PreAuthorize("hasRole('MANAGER')")
     public ProductDto createProduct(@Valid @RequestBody ProductCreationRequestDto creationRequestDto){
         return productService.createProduct(creationRequestDto);
     }
 
     @PutMapping("/update/{id}")
+    @PreAuthorize("hasRole('MANAGER')")
     public ProductDto changeProductManager(@PathVariable("id") String id, @Valid @RequestBody NewManagerForProductRequestDto newManagerForProductRequestDto){
         return productService.changeProductManager(UUID.fromString(id), newManagerForProductRequestDto);
     }
@@ -41,6 +45,7 @@ public class ProductController {
     }
 
     @GetMapping("/show-all-active-products")
+    @PreAuthorize("hasRole('MANAGER')")
     public Set<ProductDto> getAllActiveProducts() {
         return productService.getAllActiveProducts();
     }

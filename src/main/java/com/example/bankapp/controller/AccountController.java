@@ -6,6 +6,7 @@ import com.example.bankapp.dto.AccountStatusDto;
 import com.example.bankapp.service.util.AccountService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -20,21 +21,25 @@ public class AccountController {
 
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('MANAGER')")
     public AccountDto getAccountById(@PathVariable("id") String id){
         return accountService.getAccountById(UUID.fromString(id));
     }
 
     @GetMapping("/get-all-blocked-accounts")
+    @PreAuthorize("hasRole('MANAGER')")
     public Set<AccountDto> getRemovedAccounts() {
         return accountService.getBlockedAccounts();
     }
 
     @PostMapping("/create")
+    @PreAuthorize("hasRole('MANAGER')")
     public AccountDto createAccount(@RequestBody @Valid AccountCreationRequestDto accountDTO){
         return accountService.createAccount(accountDTO);
     }
 
     @PutMapping("/update/{id}")
+    @PreAuthorize("hasRole('MANAGER')")
     public AccountDto updateAccountStatus(@PathVariable("id") String id, @RequestBody @Valid AccountStatusDto accountStatusDto){
         return accountService.updateAccountStatus(UUID.fromString(id), accountStatusDto);
     }
@@ -45,6 +50,7 @@ public class AccountController {
     }
 
     @GetMapping("/get-all-by-client/{id}")
+    @PreAuthorize("hasRole('MANAGER')")
     public Set<AccountDto> getAccountsByClient(@PathVariable("id") String id){
         return accountService.getAccountsByClient(UUID.fromString(id));
     }
