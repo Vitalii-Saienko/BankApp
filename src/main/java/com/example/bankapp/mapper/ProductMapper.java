@@ -12,6 +12,7 @@ import java.util.Set;
 @Component
 public interface ProductMapper {
     ProductDto productToProductDto(Product product);
+
     Set<ProductDto> productsToProductDto(Set<Product> products);
 
     default String map(Manager value) {

@@ -11,5 +11,6 @@
     <include file="/db/changelog/2-createTables/006-db.changelog_create_agreements_table.xml"/>
     <include file="db/changelog/2-createTables/007-db.changelog_create_transactions_table.xml"/>
     <include file="db/changelog/2-createTables/008-db.changelog_create_users_table.xml"/>
+<!--    <include file="db/changelog/2-createTables/009-db.changelog_create_roles.xml"/>-->
 
 </databaseChangeLog>

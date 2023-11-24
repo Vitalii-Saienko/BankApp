@@ -3,12 +3,14 @@ package com.example.bankapp.entity;
 import com.example.bankapp.entity.enums.AccountStatus;
 import com.example.bankapp.entity.enums.AccountType;
 import com.example.bankapp.entity.enums.Currency;
-import com.example.bankapp.entity.enums.Status;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.sql.Timestamp;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -51,13 +53,16 @@ public class Account {
     @Column(name = "updated_at")
     private Timestamp updatedAt;
 
-    @OneToMany(mappedBy = "accountId", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "accountId", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
+            CascadeType.DETACH}, fetch = FetchType.LAZY)
     private Set<Agreement> agreementId = new HashSet<>();
 
-    @OneToMany(mappedBy = "debitAccountId", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "debitAccountId", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
+            CascadeType.DETACH}, fetch = FetchType.LAZY)
     private Set<Transaction> debitTransactionSet = new HashSet<>();
 
-    @OneToMany(mappedBy = "creditAccountId", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "creditAccountId", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
+            CascadeType.DETACH}, fetch = FetchType.LAZY)
     private Set<Transaction> creditTransactionSet = new HashSet<>();
 
     @Override

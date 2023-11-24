@@ -2,6 +2,8 @@ package com.example.bankapp.controller;
 
 import com.example.bankapp.BankAppApplication;
 import com.example.bankapp.dto.ManagerRequestDto;
+import com.example.bankapp.repository.UserRepository;
+import com.example.bankapp.security.UserGenerator;
 import com.example.bankapp.service.impl.ManagerServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -10,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -30,7 +34,17 @@ class ManagerControllerTest {
     @Autowired
     ManagerController managerController;
 
+    @Autowired
+    UserGenerator userGenerator;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @Test
+    @WithMockUser(authorities = {"ADMIN"})
     void getManagerByIdTestValidRequest() {
         String id = "a10e6991-c16a-4f9b-9f04-6fda0510d611";
         try {
@@ -42,6 +56,7 @@ class ManagerControllerTest {
     }
 
     @Test
+    @WithMockUser(authorities = {"ADMIN"})
     void getManagerByIdTestInvalidRequest() {
         String invalidId = "not-a-valid-uuid";
         try {
@@ -53,6 +68,7 @@ class ManagerControllerTest {
     }
 
     @Test
+    @WithMockUser(authorities = {"ADMIN"})
     void getManagerClientsTestValidRequest() {
         String id = "a10e6991-c16a-4f9b-9f04-6fda0510d611";
         try {
@@ -64,6 +80,7 @@ class ManagerControllerTest {
     }
 
     @Test
+    @WithMockUser(authorities = {"ADMIN"})
     void getManagerClientsTestInvalidRequest() {
         String invalidId = "not-a-valid-uuid";
         try {
@@ -75,6 +92,7 @@ class ManagerControllerTest {
     }
 
     @Test
+    @WithMockUser(authorities = {"ADMIN"})
     void createManagerTestValidRequest() {
         ManagerRequestDto creationRequestDto = new ManagerRequestDto();
         creationRequestDto.setFirstName("test");
@@ -90,6 +108,7 @@ class ManagerControllerTest {
     }
 
     @Test
+    @WithMockUser(authorities = {"ADMIN"})
     void createManagerTestInvalidRequest() {
         ManagerRequestDto invalidCreationRequestDto = new ManagerRequestDto();
         try {
@@ -103,6 +122,7 @@ class ManagerControllerTest {
     }
 
     @Test
+    @WithMockUser(authorities = {"ADMIN"})
     void updateManagerInfoTestValidRequest() {
         String id = "a10e6991-c16a-4f9b-9f04-6fda0510d611";
         ManagerRequestDto managerRequestDto = new ManagerRequestDto();
@@ -119,6 +139,7 @@ class ManagerControllerTest {
     }
 
     @Test
+    @WithMockUser(authorities = {"ADMIN"})
     void updateManagerInfoTestInvalidRequest() {
         String invalidId = "not-a-valid-uuid";
         ManagerRequestDto invalidManagerRequestDto = new ManagerRequestDto();
@@ -133,6 +154,7 @@ class ManagerControllerTest {
     }
 
     @Test
+    @WithMockUser(authorities = {"ADMIN"})
     void deleteManagerTestValidRequest() {
         String id = "a10e6991-c16a-4f9b-9f04-6fda0510d611";
         try {
@@ -144,6 +166,19 @@ class ManagerControllerTest {
     }
 
     @Test
+    @WithMockUser(authorities = {"INTERN"})
+    void deleteManagerTestValidRequestAccessDenied() {
+        String id = "a10e6991-c16a-4f9b-9f04-6fda0510d611";
+        try {
+            mockMvc.perform(delete("/manager/delete/" + id))
+                    .andExpect(status().isForbidden());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    @WithMockUser(authorities = {"ADMIN"})
     void deleteManagerTestInvalidRequest() {
         String invalidId = "not-a-valid-uuid";
         try {

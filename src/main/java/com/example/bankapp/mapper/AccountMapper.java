@@ -5,6 +5,7 @@ import com.example.bankapp.entity.Account;
 import com.example.bankapp.entity.Client;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
+
 import java.util.Set;
 
 import static org.mapstruct.InjectionStrategy.CONSTRUCTOR;

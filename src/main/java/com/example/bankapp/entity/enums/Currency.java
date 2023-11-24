@@ -14,7 +14,7 @@ public enum Currency {
 
     private final int value;
 
-    Currency(int value){
+    Currency(int value) {
         this.value = value;
     }
 }

@@ -3,6 +3,8 @@ package com.example.bankapp.controller;
 import com.example.bankapp.BankAppApplication;
 import com.example.bankapp.dto.AccountActivityDTO;
 import com.example.bankapp.dto.TransactionCreationRequestDto;
+import com.example.bankapp.repository.UserRepository;
+import com.example.bankapp.security.UserGenerator;
 import com.example.bankapp.service.impl.TransactionServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -11,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -31,7 +35,17 @@ class TransactionControllerTest {
     @Autowired
     TransactionController transactionController;
 
+    @Autowired
+    UserGenerator userGenerator;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @Test
+    @WithMockUser(authorities = {"ADMIN"})
     void getTransactionByIdTestValidRequest() {
         String validUuid = "a10e6991-c16a-4f9b-9f04-6fda0510d611";
         try {
@@ -43,6 +57,7 @@ class TransactionControllerTest {
     }
 
     @Test
+    @WithMockUser(authorities = {"ADMIN"})
     void getTransactionByIdTestInvalidRequest() {
         String invalidUuid = "not-a-valid-uuid";
         try {
@@ -54,6 +69,7 @@ class TransactionControllerTest {
     }
 
     @Test
+    @WithMockUser(authorities = {"ADMIN"})
     void createTransactionTestValidRequest() {
         TransactionCreationRequestDto newTransactionRequest = new TransactionCreationRequestDto();
         newTransactionRequest.setAmount("100");
@@ -71,6 +87,7 @@ class TransactionControllerTest {
     }
 
     @Test
+    @WithMockUser(authorities = {"ADMIN"})
     void createTransactionTestInvalidRequest() {
         TransactionCreationRequestDto newTransactionRequest = new TransactionCreationRequestDto();
         try {
@@ -84,6 +101,7 @@ class TransactionControllerTest {
     }
 
     @Test
+    @WithMockUser(authorities = {"ADMIN"})
     void updateTransactionStatusToRejectedTest() {
         String validUuid = "a10e6991-c16a-4f9b-9f04-6fda0510d611";
         try {
@@ -96,6 +114,7 @@ class TransactionControllerTest {
     }
 
     @Test
+    @WithMockUser(authorities = {"ADMIN"})
     void getTransactionsForPeriodByClientTest() {
         String validUuid = "a10e6991-c16a-4f9b-9f04-6fda0510d611";
         AccountActivityDTO accountActivityDTO = new AccountActivityDTO();

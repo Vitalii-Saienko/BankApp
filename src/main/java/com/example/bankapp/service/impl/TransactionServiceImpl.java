@@ -35,26 +35,29 @@ public class TransactionServiceImpl implements TransactionService {
     private final AccountRepository accountRepository;
     private final ClientRepository clientRepository;
 
-    private static final String EXCEPTION_MESSAGE_ACCOUNT= "Account not found.";
+    private static final String EXCEPTION_MESSAGE_ACCOUNT = "Account not found.";
 
     @Override
-    public TransactionDto getTransactionById(UUID id){
+    public TransactionDto getTransactionById(UUID id) {
         return transactionMapper.transactionToTransactionDto(transactionRepository.findById(id)
                 .orElseThrow(() -> new DatabaseAccessException("Transaction not found with ID: " + id)));
     }
 
     @Transactional
     @Override
-    public TransactionDto createTransaction(TransactionCreationRequestDto transactionCreationRequestDto){
+    public TransactionDto createTransaction(TransactionCreationRequestDto transactionCreationRequestDto) {
 
-        Optional<Account> debitAccount = accountRepository.findById(UUID.fromString(transactionCreationRequestDto.getDebitAccountId()));
-        Optional<Account> creditAccount = accountRepository.findById(UUID.fromString(transactionCreationRequestDto.getCreditAccountId()));
+        Optional<Account> debitAccount =
+                accountRepository.findById(UUID.fromString(transactionCreationRequestDto.getDebitAccountId()));
+        Optional<Account> creditAccount =
+                accountRepository.findById(UUID.fromString(transactionCreationRequestDto.getCreditAccountId()));
 
         if (debitAccount.isEmpty() || creditAccount.isEmpty()) {
             throw new DatabaseAccessException(EXCEPTION_MESSAGE_ACCOUNT);
         }
 
-        boolean isDataForTransactionValid = checkIsDataForTransactionValid(debitAccount, creditAccount, transactionCreationRequestDto);
+        boolean isDataForTransactionValid = checkIsDataForTransactionValid(debitAccount, creditAccount,
+                transactionCreationRequestDto);
 
         if (isDataForTransactionValid) {
             Transaction transaction = transactionMapper.transactionRequestToTransaction(transactionCreationRequestDto);
@@ -89,13 +92,16 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
 
-    private boolean checkIsDataForTransactionValid(Optional<Account> debitAccount, Optional<Account> creditAccount, TransactionCreationRequestDto newTransaction) throws ClientNotActiveException, AccountNotActiveException, CurrencyMismatchException, InsufficientFundsException, DatabaseAccessException, SameAccountTransactionException {
+    private boolean checkIsDataForTransactionValid(Optional<Account> debitAccount, Optional<Account> creditAccount,
+                                                   TransactionCreationRequestDto newTransaction) throws ClientNotActiveException, AccountNotActiveException, CurrencyMismatchException, InsufficientFundsException, DatabaseAccessException, SameAccountTransactionException {
         if (debitAccount.isPresent() && creditAccount.isPresent()) {
 
             checkIfUuidSame(debitAccount.get(), creditAccount.get());
 
-            Optional<Client> clientDebitAccOwner = clientRepository.findById(debitAccount.get().getClientId().getClientId());
-            Optional<Client> clientCreditAccOwner = clientRepository.findById(creditAccount.get().getClientId().getClientId());
+            Optional<Client> clientDebitAccOwner =
+                    clientRepository.findById(debitAccount.get().getClientId().getClientId());
+            Optional<Client> clientCreditAccOwner =
+                    clientRepository.findById(creditAccount.get().getClientId().getClientId());
 
             checkIfClientIsPresent(clientDebitAccOwner, clientCreditAccOwner);
 
@@ -151,7 +157,8 @@ public class TransactionServiceImpl implements TransactionService {
         }
     }
 
-    private void checkIfClientStatusActive(Optional<Client> clientDebitAccOwner, Optional<Client> clientCreditAccOwner) {
+    private void checkIfClientStatusActive(Optional<Client> clientDebitAccOwner,
+                                           Optional<Client> clientCreditAccOwner) {
         if (clientDebitAccOwner.isEmpty() || clientCreditAccOwner.isEmpty()) {
             throw new DatabaseAccessException("Client not found.");
         }
@@ -163,7 +170,8 @@ public class TransactionServiceImpl implements TransactionService {
         }
     }
 
-    private static void checkIfClientIsPresent(Optional<Client> clientDebitAccOwner, Optional<Client> clientCreditAccOwner) {
+    private static void checkIfClientIsPresent(Optional<Client> clientDebitAccOwner,
+                                               Optional<Client> clientCreditAccOwner) {
         if (clientDebitAccOwner.isEmpty() || clientCreditAccOwner.isEmpty()) {
             throw new DatabaseAccessException("Client not found.");
         }
@@ -184,8 +192,9 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public TransactionDto updateTransactionStatusToRejected(UUID uuid){
-        Transaction transaction = transactionRepository.findById(uuid).orElseThrow(() -> new DatabaseAccessException("Transaction not found with ID: " + uuid));
+    public TransactionDto updateTransactionStatusToRejected(UUID uuid) {
+        Transaction transaction = transactionRepository.findById(uuid).orElseThrow(() -> new DatabaseAccessException(
+                "Transaction not found with ID: " + uuid));
         transaction.setTransactionStatus(TransactionStatus.REJECTED);
         transactionRepository.save(transaction);
         return transactionMapper.transactionToTransactionDto(transaction);
@@ -193,8 +202,9 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Transactional
     @Override
-    public Set<TransactionDto> getTransactionsForPeriodByClient(UUID uuid, AccountActivityDTO activityDTO){
-        Client client = clientRepository.findById(uuid).orElseThrow(() -> new DatabaseAccessException("Client not found with ID: " + uuid));
+    public Set<TransactionDto> getTransactionsForPeriodByClient(UUID uuid, AccountActivityDTO activityDTO) {
+        Client client = clientRepository.findById(uuid).orElseThrow(() -> new DatabaseAccessException("Client not " +
+                "found with ID: " + uuid));
         Set<Account> accountSet = client.getAccountSet();
         Set<Transaction> transactions = new HashSet<>();
         for (Account account : accountSet) {

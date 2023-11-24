@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ProductDto{
+public class ProductDto {
     @NotBlank(message = "Product ID cannot be blank") String productId;
     @NotBlank(message = "Manager ID cannot be blank") String managerId;
     @NotBlank(message = "Product Name cannot be blank") String productName;

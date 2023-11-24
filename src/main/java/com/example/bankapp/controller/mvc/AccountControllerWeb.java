@@ -3,6 +3,7 @@ package com.example.bankapp.controller.mvc;
 import com.example.bankapp.dto.AccountCreationRequestDto;
 import com.example.bankapp.exception.database_exception.DatabaseAccessException;
 import com.example.bankapp.service.util.AccountService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,8 +25,8 @@ public class AccountControllerWeb {
         return "account-create";
     }
 
-    @PostMapping("/create")
-    public String createAccount(@ModelAttribute("accountCreationRequestDto") AccountCreationRequestDto accountDTO) {
+    @PostMapping(value = "/create", consumes = {"application/x-www-form-urlencoded"})
+    public String createAccount(@ModelAttribute("accountCreationRequestDto") @Valid AccountCreationRequestDto accountDTO) {
         try {
             accountService.createAccount(accountDTO);
         } catch (DatabaseAccessException | IllegalArgumentException e) {
@@ -33,4 +34,5 @@ public class AccountControllerWeb {
         }
         return "operation-success";
     }
+
 }

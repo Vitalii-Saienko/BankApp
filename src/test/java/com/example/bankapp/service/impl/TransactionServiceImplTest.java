@@ -72,7 +72,7 @@ class TransactionServiceImplTest {
 
     @Test
     void getTransactionsForPeriodByClientTest() {
-        UUID clientId = UUID.fromString("29f5b116-d35f-4171-5e4a-40eb48a63f34");
+        UUID clientId = UUID.fromString("f1b872b6-eb29-4cb9-bf0f-36f57ad31712");
         AccountActivityDTO activityDTO = new AccountActivityDTO();
         activityDTO.setYear("2023");
         activityDTO.setMonth("10");

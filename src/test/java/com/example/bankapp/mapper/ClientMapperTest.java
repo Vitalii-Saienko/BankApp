@@ -5,11 +5,14 @@ import com.example.bankapp.dto.ClientDto;
 import com.example.bankapp.entity.Client;
 import com.example.bankapp.entity.Manager;
 import com.example.bankapp.entity.enums.Status;
+import com.example.bankapp.repository.UserRepository;
+import com.example.bankapp.security.UserGenerator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.sql.Timestamp;
@@ -26,6 +29,7 @@ class ClientMapperTest {
 
     @Autowired
     ClientMapper clientMapper;
+
 
     @Test
     void clientToClientDto() {

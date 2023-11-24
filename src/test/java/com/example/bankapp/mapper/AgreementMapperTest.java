@@ -6,11 +6,14 @@ import com.example.bankapp.entity.Account;
 import com.example.bankapp.entity.Agreement;
 import com.example.bankapp.entity.Product;
 import com.example.bankapp.entity.enums.Status;
+import com.example.bankapp.repository.UserRepository;
+import com.example.bankapp.security.UserGenerator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.math.BigDecimal;
@@ -25,6 +28,7 @@ class AgreementMapperTest {
 
     @Autowired
     AgreementMapper agreementMapper;
+
 
     @Test
     void agreementToAgreementDtoTest() {

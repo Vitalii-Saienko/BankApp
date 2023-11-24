@@ -3,6 +3,8 @@ package com.example.bankapp.controller;
 import com.example.bankapp.BankAppApplication;
 import com.example.bankapp.dto.ClientCreationRequestDto;
 import com.example.bankapp.dto.ClientDto;
+import com.example.bankapp.repository.UserRepository;
+import com.example.bankapp.security.UserGenerator;
 import com.example.bankapp.service.impl.ClientServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -11,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -35,7 +39,17 @@ class ClientControllerTest {
     @Autowired
     ClientController clientController;
 
+    @Autowired
+    UserGenerator userGenerator;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @Test
+    @WithMockUser(authorities = {"ADMIN"})
     void getClientByIdTestValidRequest() {
         String id = "a10e6991-c16a-4f9b-9f04-6fda0510d611";
         try {
@@ -47,6 +61,7 @@ class ClientControllerTest {
     }
 
     @Test
+    @WithMockUser(authorities = {"ADMIN"})
     void getClientByIdTestInvalidRequest() {
         String invalidId = "not-a-valid-uuid";
         try {
@@ -58,6 +73,7 @@ class ClientControllerTest {
     }
 
     @Test
+    @WithMockUser(authorities = {"ADMIN"})
     void updateClientTestValidRequest() {
         ClientDto clientDto = new ClientDto();
         clientDto.setClientId("a10e6991-c16a-4f9b-9f04-6fda0510d611");
@@ -81,6 +97,7 @@ class ClientControllerTest {
     }
 
     @Test
+    @WithMockUser(authorities = {"ADMIN"})
     void updateClientTestInvalidRequest() {
         ClientDto notValidClientDto = new ClientDto();
         try {
@@ -94,6 +111,7 @@ class ClientControllerTest {
     }
 
     @Test
+    @WithMockUser(authorities = {"ADMIN"})
     void deleteClientTestValidRequest() {
         String validId = "a10e6991-c16a-4f9b-9f04-6fda0510d611";
         try {
@@ -105,6 +123,19 @@ class ClientControllerTest {
     }
 
     @Test
+    @WithMockUser(authorities = {"INTERN"})
+    void deleteClientTestValidRequestAccessDenied() {
+        String validId = "a10e6991-c16a-4f9b-9f04-6fda0510d611";
+        try {
+            mockMvc.perform(delete("/client/delete/" + validId))
+                    .andExpect(status().isForbidden());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    @WithMockUser(authorities = {"ADMIN"})
     void deleteClientTestInvalidRequest() {
         String invalidId = "not-a-valid-uuid";
         try {
@@ -116,6 +147,7 @@ class ClientControllerTest {
     }
 
     @Test
+    @WithMockUser(authorities = {"ADMIN"})
     void createClientTestValidRequest() {
         ClientCreationRequestDto clientCreationRequestDto = new ClientCreationRequestDto();
         clientCreationRequestDto.setFirstName("test");
@@ -136,6 +168,7 @@ class ClientControllerTest {
     }
 
     @Test
+    @WithMockUser(authorities = {"ADMIN"})
     void createClientTestInvalidRequest() {
         ClientCreationRequestDto notValidClientCreationRequestDto = new ClientCreationRequestDto();
         try {
@@ -149,6 +182,7 @@ class ClientControllerTest {
     }
 
     @Test
+    @WithMockUser(authorities = {"ADMIN"})
     void getManagerClientsTestValidRequest() {
         String id = "a10e6991-c16a-4f9b-9f04-6fda0510d611";
         try {
@@ -160,6 +194,7 @@ class ClientControllerTest {
     }
 
     @Test
+    @WithMockUser(authorities = {"ADMIN"})
     void getManagerClientsTestInvalidRequest() {
         String invalidId = "not-a-valid-uuid";
         try {

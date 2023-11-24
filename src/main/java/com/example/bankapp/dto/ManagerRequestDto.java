@@ -11,6 +11,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ManagerRequestDto {
-        @NotBlank(message = "First Name cannot be blank") String firstName;
-        @NotBlank(message = "Last Name cannot be blank") String lastName;
+    @NotBlank(message = "First Name cannot be blank") String firstName;
+    @NotBlank(message = "Last Name cannot be blank") String lastName;
 }

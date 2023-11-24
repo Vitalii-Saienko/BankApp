@@ -10,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ProductCreationRequestDto{
+public class ProductCreationRequestDto {
     @NotBlank(message = "Manager ID cannot be blank") String managerId;
     @NotBlank(message = "Product Name cannot be blank") String productName;
     @NotBlank(message = "Currency Code cannot be blank") String currencyCode;

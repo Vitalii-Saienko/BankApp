@@ -1,8 +1,8 @@
 package com.example.bankapp.service.impl;
 
 import com.example.bankapp.dto.ClientDto;
-import com.example.bankapp.dto.ManagerRequestDto;
 import com.example.bankapp.dto.ManagerDto;
+import com.example.bankapp.dto.ManagerRequestDto;
 import com.example.bankapp.entity.Manager;
 import com.example.bankapp.entity.enums.ManagerStatus;
 import com.example.bankapp.exception.database_exception.DatabaseAccessException;
@@ -25,15 +25,16 @@ public class ManagerServiceImpl implements ManagerService {
     private final ManagerMapper managerMapper;
     private final ClientMapper clientMapper;
     private static final String EXCEPTION_MESSAGE_MANAGER = "Manager not found with ID: ";
+
     @Override
-    public ManagerDto getManagerById(UUID id){
+    public ManagerDto getManagerById(UUID id) {
         return managerMapper.managerToManagerDto(managerRepository.findById(id)
-                .orElseThrow(()-> new DatabaseAccessException(EXCEPTION_MESSAGE_MANAGER + id)));
+                .orElseThrow(() -> new DatabaseAccessException(EXCEPTION_MESSAGE_MANAGER + id)));
     }
 
     @Transactional
     @Override
-    public Set<ClientDto> getManagerClients(UUID uuid){
+    public Set<ClientDto> getManagerClients(UUID uuid) {
         Optional<Manager> manager = managerRepository.findById(uuid);
         if (manager.isPresent()) {
             return clientMapper.clientsToClientDto(manager.get().getClientSet());
@@ -70,7 +71,7 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public ManagerDto deleteManager(UUID uuid){
+    public ManagerDto deleteManager(UUID uuid) {
         Optional<Manager> manager = managerRepository.findById(uuid);
         if (manager.isPresent()) {
             manager.get().setManagerStatus(ManagerStatus.BLOCKED);

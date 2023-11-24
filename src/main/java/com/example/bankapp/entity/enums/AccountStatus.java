@@ -10,7 +10,7 @@ public enum AccountStatus {
 
     private final int value;
 
-    AccountStatus(int value){
+    AccountStatus(int value) {
         this.value = value;
     }
 }

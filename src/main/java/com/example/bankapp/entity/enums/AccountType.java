@@ -13,7 +13,7 @@ public enum AccountType {
 
     private final int value;
 
-    AccountType(int value){
+    AccountType(int value) {
         this.value = value;
     }
 

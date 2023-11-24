@@ -32,14 +32,14 @@ public class ProductServiceImpl implements ProductService {
     private static final String EXCEPTION_MESSAGE_MANAGER = "Manager not found with ID: ";
 
     @Override
-    public ProductDto getProductById(UUID id){
+    public ProductDto getProductById(UUID id) {
         return productMapper.productToProductDto(productRepository.findById(id)
                 .orElseThrow(() -> new DatabaseAccessException(EXCEPTION_MESSAGE_PRODUCT + id)));
     }
 
     @Transactional
     @Override
-    public ProductDto createProduct(ProductCreationRequestDto creationRequestDto){
+    public ProductDto createProduct(ProductCreationRequestDto creationRequestDto) {
         Product product = new Product();
         Optional<Manager> manager = managerRepository.findById(UUID.fromString(creationRequestDto.getManagerId()));
         if (manager.isEmpty()) {
@@ -63,8 +63,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     @Override
-    public ProductDto changeProductManager(UUID uuid, NewManagerForProductRequestDto newManagerForProductRequestDto){
-        Optional<Manager> newManager = managerRepository.findById(UUID.fromString(newManagerForProductRequestDto.getNewManagerId()));
+    public ProductDto changeProductManager(UUID uuid, NewManagerForProductRequestDto newManagerForProductRequestDto) {
+        Optional<Manager> newManager =
+                managerRepository.findById(UUID.fromString(newManagerForProductRequestDto.getNewManagerId()));
         Optional<Product> product = productRepository.findById(uuid);
         if (newManager.isEmpty()) {
             throw new DatabaseAccessException(EXCEPTION_MESSAGE_MANAGER + newManagerForProductRequestDto.getNewManagerId());
@@ -79,7 +80,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDto deleteProduct(UUID uuid){
+    public ProductDto deleteProduct(UUID uuid) {
         Optional<Product> product = productRepository.findById(uuid);
         if (product.isEmpty()) {
             throw new DatabaseAccessException(EXCEPTION_MESSAGE_PRODUCT + uuid);
@@ -95,7 +96,8 @@ public class ProductServiceImpl implements ProductService {
         Iterable<Product> productIterable = productRepository.findAll();
         Set<Product> activeProducts = new HashSet<>();
         productIterable.forEach(activeProducts::add);
-        Set<Product> collected = activeProducts.stream().filter(product -> product.getProductStatus().equals(Status.ACTIVE)).collect(Collectors.toSet());
+        Set<Product> collected =
+                activeProducts.stream().filter(product -> product.getProductStatus().equals(Status.ACTIVE)).collect(Collectors.toSet());
         return productMapper.productsToProductDto(collected);
     }
 }

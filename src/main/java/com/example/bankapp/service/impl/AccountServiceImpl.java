@@ -19,7 +19,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,7 +36,7 @@ public class AccountServiceImpl implements AccountService {
     private static final String EXCEPTION_MESSAGE_CLIENT = "Client not found with ID: ";
 
     @Override
-    public AccountDto getAccountById(UUID id){
+    public AccountDto getAccountById(UUID id) {
         return accountMapper.accountToAccountDto(accountRepository.findById(id)
                 .orElseThrow(() -> new DatabaseAccessException(EXCEPTION_MESSAGE_ACC + id)));
     }
@@ -51,9 +54,10 @@ public class AccountServiceImpl implements AccountService {
 
     @Transactional
     @Override
-    public AccountDto createAccount(AccountCreationRequestDto creationRequestDto){
+    public AccountDto createAccount(AccountCreationRequestDto creationRequestDto) {
         Account account = new Account();
-        Client client = clientRepository.findById(UUID.fromString(creationRequestDto.getClientId())).orElseThrow(() -> new DatabaseAccessException(EXCEPTION_MESSAGE_CLIENT + creationRequestDto.getClientId()));
+        Client client =
+                clientRepository.findById(UUID.fromString(creationRequestDto.getClientId())).orElseThrow(() -> new DatabaseAccessException(EXCEPTION_MESSAGE_CLIENT + creationRequestDto.getClientId()));
         account.setAccountUUID(UUID.randomUUID());
         account.setClientId(client);
         account.setAccountType(AccountType.valueOf(creationRequestDto.getAccountType()));
@@ -70,24 +74,27 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public AccountDto updateAccountStatus(UUID uuid, AccountStatusDto accountStatusDto){
-        Account account = accountRepository.findById(uuid).orElseThrow(() -> new DatabaseAccessException(EXCEPTION_MESSAGE_ACC + uuid));
+    public AccountDto updateAccountStatus(UUID uuid, AccountStatusDto accountStatusDto) {
+        Account account =
+                accountRepository.findById(uuid).orElseThrow(() -> new DatabaseAccessException(EXCEPTION_MESSAGE_ACC + uuid));
         account.setAccountStatus(AccountStatus.valueOf(accountStatusDto.getAccountStatus()));
         accountRepository.save(account);
         return accountMapper.accountToAccountDto(account);
     }
 
     @Override
-    public AccountDto deleteAccount(UUID uuid){
-        Account account = accountRepository.findById(uuid).orElseThrow(() -> new DatabaseAccessException(EXCEPTION_MESSAGE_ACC + uuid));
+    public AccountDto deleteAccount(UUID uuid) {
+        Account account =
+                accountRepository.findById(uuid).orElseThrow(() -> new DatabaseAccessException(EXCEPTION_MESSAGE_ACC + uuid));
         account.setAccountStatus(AccountStatus.REMOVED);
         accountRepository.save(account);
         return accountMapper.accountToAccountDto(account);
     }
 
     @Override
-    public Set<AccountDto> getAccountsByClient(UUID uuid){
-        Client client = clientRepository.findById(uuid).orElseThrow(() -> new DatabaseAccessException(EXCEPTION_MESSAGE_CLIENT + uuid));
+    public Set<AccountDto> getAccountsByClient(UUID uuid) {
+        Client client =
+                clientRepository.findById(uuid).orElseThrow(() -> new DatabaseAccessException(EXCEPTION_MESSAGE_CLIENT + uuid));
         return accountMapper.accountsToAccountDto(client.getAccountSet());
     }
 }

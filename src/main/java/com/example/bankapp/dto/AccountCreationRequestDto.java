@@ -10,10 +10,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class AccountCreationRequestDto{
+public class AccountCreationRequestDto {
 
-    @NotBlank(message = "Client ID cannot be blank") private String clientId;
-    @NotBlank(message = "Account Type cannot be blank") private String accountType;
-    @NotBlank(message = "Currency Code cannot be blank") private String currencyCode;
+    @NotBlank(message = "Client ID cannot be blank")
+    private String clientId;
+    @NotBlank(message = "Account Type cannot be blank")
+    private String accountType;
+    @NotBlank(message = "Currency Code cannot be blank")
+    private String currencyCode;
 
 }

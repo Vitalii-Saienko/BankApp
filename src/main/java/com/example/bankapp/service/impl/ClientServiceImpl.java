@@ -34,13 +34,13 @@ public class ClientServiceImpl implements ClientService {
     private static final String EXCEPTION_MESSAGE_MANAGER = "Manager not found with ID: ";
 
     @Override
-    public ClientDto getClientById(UUID id){
+    public ClientDto getClientById(UUID id) {
         return clientMapper.clientToClientDto(clientRepository.findById(id)
                 .orElseThrow(() -> new DatabaseAccessException(EXCEPTION_MESSAGE_CLIENT + id)));
     }
 
     @Override
-    public ClientDto updateClient(ClientUpdateInfoRequestDto clientDto){
+    public ClientDto updateClient(ClientUpdateInfoRequestDto clientDto) {
         UUID clientId = UUID.fromString(clientDto.getClientId());
         Optional<Client> optionalClient = clientRepository.findById(clientId);
 
@@ -63,9 +63,10 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public ClientDto deleteClient(UUID uuid){
+    public ClientDto deleteClient(UUID uuid) {
         if (clientRepository.existsById(uuid)) {
-            Client client = clientRepository.findById(uuid).orElseThrow(() -> new DatabaseAccessException(EXCEPTION_MESSAGE_CLIENT + uuid));
+            Client client =
+                    clientRepository.findById(uuid).orElseThrow(() -> new DatabaseAccessException(EXCEPTION_MESSAGE_CLIENT + uuid));
             client.setClientStatus(Status.REMOVED);
             deleteClientAccounts(client);
             clientRepository.save(client);
@@ -109,8 +110,9 @@ public class ClientServiceImpl implements ClientService {
 
     @Transactional
     @Override
-    public Set<ClientDto> getManagerClients(UUID uuid){
-        Manager manager = managerRepository.findById(uuid).orElseThrow(() -> new DatabaseAccessException(EXCEPTION_MESSAGE_MANAGER + uuid));
+    public Set<ClientDto> getManagerClients(UUID uuid) {
+        Manager manager =
+                managerRepository.findById(uuid).orElseThrow(() -> new DatabaseAccessException(EXCEPTION_MESSAGE_MANAGER + uuid));
         return clientMapper.clientsToClientDto(manager.getClientSet());
     }
 }

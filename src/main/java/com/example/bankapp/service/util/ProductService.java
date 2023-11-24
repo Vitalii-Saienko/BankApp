@@ -3,10 +3,8 @@ package com.example.bankapp.service.util;
 import com.example.bankapp.dto.NewManagerForProductRequestDto;
 import com.example.bankapp.dto.ProductCreationRequestDto;
 import com.example.bankapp.dto.ProductDto;
-import com.example.bankapp.exception.database_exception.DatabaseAccessException;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 

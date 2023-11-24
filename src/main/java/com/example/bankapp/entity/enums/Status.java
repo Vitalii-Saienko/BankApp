@@ -11,7 +11,7 @@ public enum Status {
 
     private final int value;
 
-    Status(int value){
+    Status(int value) {
         this.value = value;
     }
 }

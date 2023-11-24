@@ -10,6 +10,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class NewManagerForProductRequestDto{
+public class NewManagerForProductRequestDto {
     @NotBlank(message = "New Manager ID cannot be blank") String newManagerId;
 }

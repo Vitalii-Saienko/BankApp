@@ -9,7 +9,8 @@ public enum TransactionStatus {
     APPROVED(2),
     REJECTED(3);
     private final int value;
-    TransactionStatus(int value){
+
+    TransactionStatus(int value) {
         this.value = value;
     }
 }

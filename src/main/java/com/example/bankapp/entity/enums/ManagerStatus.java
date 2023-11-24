@@ -9,7 +9,7 @@ public enum ManagerStatus {
 
     private final int value;
 
-    ManagerStatus(int value){
+    ManagerStatus(int value) {
         this.value = value;
     }
 }

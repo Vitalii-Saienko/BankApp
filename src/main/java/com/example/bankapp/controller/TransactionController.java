@@ -20,26 +20,27 @@ public class TransactionController {
     private final TransactionService transactionService;
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('MANAGER')")
-    public TransactionDto getTransactionById(@PathVariable("id") String id){
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
+    public TransactionDto getTransactionById(@PathVariable("id") String id) {
         return transactionService.getTransactionById(UUID.fromString(id));
     }
 
     @PostMapping("/create")
-    @PreAuthorize("hasRole('MANAGER')")
-    public TransactionDto createTransaction(@Valid @RequestBody TransactionCreationRequestDto newTransaction){
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
+    public TransactionDto createTransaction(@Valid @RequestBody TransactionCreationRequestDto newTransaction) {
         return transactionService.createTransaction(newTransaction);
     }
 
     @PutMapping("/update/{id}")
-    @PreAuthorize("hasRole('MANAGER')")
-    public TransactionDto updateTransactionStatusToRejected(@PathVariable("id") String id){
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
+    public TransactionDto updateTransactionStatusToRejected(@PathVariable("id") String id) {
         return transactionService.updateTransactionStatusToRejected(UUID.fromString(id));
     }
 
     @GetMapping("/show-all-for-period-by-client/{id}")
-    @PreAuthorize("hasRole('MANAGER')")
-    public Set<TransactionDto> getTransactionsForPeriodByClient(@PathVariable("id") String id, @Valid @RequestBody AccountActivityDTO activityDTO){
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
+    public Set<TransactionDto> getTransactionsForPeriodByClient(@PathVariable("id") String id,
+                                                                @Valid @RequestBody AccountActivityDTO activityDTO) {
         return transactionService.getTransactionsForPeriodByClient(UUID.fromString(id), activityDTO);
     }
 }

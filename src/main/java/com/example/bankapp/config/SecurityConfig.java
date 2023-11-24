@@ -1,65 +1,60 @@
 package com.example.bankapp.config;
 
-
-import com.example.bankapp.security.UserDetailsServiceImpl;
-import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
+import com.example.bankapp.entity.User;
+import com.example.bankapp.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig{
+@EnableMethodSecurity
+public class SecurityConfig {
 
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
+    public PasswordEncoder getEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-
     @Bean
-    public DaoAuthenticationProvider daoAuthenticationProvider(){
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(userDetailsService);
-        provider.setPasswordEncoder(passwordEncoder());
-        return provider;
+    public UserDetailsService userDetailsService(UserRepository userRepo) {
+        return username -> {
+            User user = userRepo.findByUsername(username);
+            if (user != null) return user;
+            throw new UsernameNotFoundException("User ‘" + username + "’ not found");
+        };
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .httpBasic(AbstractHttpConfigurer::disable)
+                .sessionManagement(x -> x
+                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                        .invalidSessionUrl("/login")
+                        .sessionFixation().migrateSession()
+                        .maximumSessions(2)
+                        .maxSessionsPreventsLogin(false))
+                .authorizeHttpRequests(request -> request.requestMatchers("/swagger-ui/**").permitAll())
+                .authorizeHttpRequests(request -> request
+                        .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/login").permitAll()
+                        .anyRequest().authenticated())
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(exchange -> exchange
-                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .requestMatchers(HttpMethod.GET,"/", "/login").permitAll()
-                        .requestMatchers("/web/**").hasAnyRole("ADMIN", "MANAGER")
-                        .requestMatchers("/account/**", "/agreement/**", "/client/**", "/manager/**", "/product/**", "/transaction/**").hasRole("ADMIN")
-                        .requestMatchers("/swagger-ui/**").permitAll()
-                        .anyRequest().authenticated()
-                )
-                .formLogin(form -> form
-                        .defaultSuccessUrl("/web", true)
-                        .failureForwardUrl("/login?error")
-                        .failureUrl("/login?error")
-                        )
-                .logout(LogoutConfigurer::permitAll)
-//                .exceptionHandling(exceptionHandling-> exceptionHandling
-//                        .authenticationEntryPoint((request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED))
-//                )
+                .formLogin(login -> login
+                        .permitAll()
+                        .successHandler((request, response, authentication) -> response.sendRedirect("/web")))
                 .build();
     }
-
 }
 

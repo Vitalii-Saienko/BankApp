@@ -7,11 +7,14 @@ import com.example.bankapp.entity.Client;
 import com.example.bankapp.entity.enums.AccountStatus;
 import com.example.bankapp.entity.enums.AccountType;
 import com.example.bankapp.entity.enums.Currency;
+import com.example.bankapp.repository.UserRepository;
+import com.example.bankapp.security.UserGenerator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.math.BigDecimal;

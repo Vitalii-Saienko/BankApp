@@ -1,9 +1,11 @@
 package com.example.bankapp.entity;
 
 import com.example.bankapp.entity.enums.ManagerStatus;
-import com.example.bankapp.entity.enums.Status;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -29,10 +31,12 @@ public class Manager {
     @Column(name = "last_name")
     private String lastName;
 
-    @OneToMany(mappedBy = "managerId", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "managerId", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
+            CascadeType.DETACH}, fetch = FetchType.LAZY)
     private Set<Product> productSet = new HashSet<>();
 
-    @OneToMany(mappedBy = "managerId", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "managerId", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
+            CascadeType.DETACH}, fetch = FetchType.LAZY)
     private Set<Client> clientSet = new HashSet<>();
 
     @Enumerated(EnumType.ORDINAL)

@@ -12,6 +12,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AccountActivityDTO {
-    @NotBlank(message = "Year cannot be blank" ) String year;
+    @NotBlank(message = "Year cannot be blank") String year;
     @NotBlank(message = "Month cannot be blank") String month;
 }

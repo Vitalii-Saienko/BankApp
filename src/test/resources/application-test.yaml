@@ -1,3 +1,6 @@
+ADMIN_PASSWORD: testAdminPassword
+MANAGER_PASSWORD: testManagerPassword
+
 spring:
 
   main:
@@ -5,8 +8,8 @@ spring:
 
   datasource:
     url: jdbc:mysql://localhost:3306/bankappschematest
-    username: root
-    password: 100500VseBudeDobre
+    password: ${datasource.password}
+    username: ${datasource.username}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:

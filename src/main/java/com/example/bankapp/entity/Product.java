@@ -3,7 +3,10 @@ package com.example.bankapp.entity;
 import com.example.bankapp.entity.enums.Currency;
 import com.example.bankapp.entity.enums.Status;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -28,7 +31,8 @@ public class Product {
     @JoinColumn(name = "manager_id", referencedColumnName = "id")
     private Manager managerId;
 
-    @OneToMany(mappedBy = "productId", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "productId", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
+            CascadeType.DETACH}, fetch = FetchType.LAZY)
     private Set<Agreement> agreementSet = new HashSet<>();
 
     @Column(name = "product_name")
