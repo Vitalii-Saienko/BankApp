@@ -51,4 +51,9 @@ public class WebController {
     public String accountCreatePage() {
         return "account-create";
     }
+
+    @GetMapping("/error")
+    public String errorPage() {
+        return "error";
+    }
 }

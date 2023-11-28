@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+</head>
+<body>
+  <div class="link-container">
+    <a class="link" th:href="@{/web}">Operation failed! Back to main menu</a>
+    <div th:if="${not #strings.isEmpty(error)}" class="error-message">
+      <p th:text="${error}" style="color: red"></p>
+    </div>
+  </div>
+</body>
+</html>

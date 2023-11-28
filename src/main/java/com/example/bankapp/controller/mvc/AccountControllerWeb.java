@@ -5,6 +5,10 @@ import com.example.bankapp.exception.database_exception.DatabaseAccessException;
 import com.example.bankapp.service.util.AccountService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,17 +24,20 @@ public class AccountControllerWeb {
     private final AccountService accountService;
 
     @GetMapping("/create")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
     public String showAccountCreationForm(Model model) {
         model.addAttribute("accountCreationRequestDto", new AccountCreationRequestDto());
         return "account-create";
     }
 
-    @PostMapping(value = "/create", consumes = {"application/x-www-form-urlencoded"})
-    public String createAccount(@ModelAttribute("accountCreationRequestDto") @Valid AccountCreationRequestDto accountDTO) {
+        @PostMapping(value = "/create", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
+    public String createAccount(@ModelAttribute("accountCreationRequestDto") @Valid AccountCreationRequestDto accountDTO, Model model) {
         try {
             accountService.createAccount(accountDTO);
         } catch (DatabaseAccessException | IllegalArgumentException e) {
-            return "redirect:/account-create.html?error=" + e.getMessage();
+            model.addAttribute("error", e.getMessage());
+            return "error";
         }
         return "operation-success";
     }

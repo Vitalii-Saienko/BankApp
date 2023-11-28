@@ -12,7 +12,9 @@
     <p class="error-message" th:text="${param.error}" style="color: red"></p>
 </div>
 
-<form action="/account/create" method="post" th:object="${accountCreationRequestDto}">
+<!--web/account/create-->
+<form action="http://localhost:8080/web/account/create" method="post" th:object="${accountCreationRequestDto}">
+
     <label for="clientId">Client ID:</label>
     <input type="text" name="clientId" id="clientId" required><br>
 <!--    <div th:if="${#fields.hasErrors('clientId')}" th:errors="*{clientId}" class="error-message"></div>-->

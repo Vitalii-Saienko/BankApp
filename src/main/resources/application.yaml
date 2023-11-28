@@ -3,6 +3,10 @@ MANAGER_PASSWORD: ${MANAGER_PASSWORD}
 
 spring:
 
+  thymeleaf:
+    enabled: true
+    encoding: UTF-8
+
   main:
     banner-mode: off
 
@@ -24,3 +28,10 @@ spring:
   web:
     resources:
       static-locations: classpath:/static/
+
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        web: debug
+#        security: debug
