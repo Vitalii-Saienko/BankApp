@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Account creation page</title>
+    <link rel="stylesheet" th:href="@{/styles_input_form_page.css}">
 </head>
 <body>
 <h1>Creating new account</h1>
@@ -17,18 +18,15 @@
 
     <label for="clientId">Client ID:</label>
     <input type="text" name="clientId" id="clientId" required><br>
-<!--    <div th:if="${#fields.hasErrors('clientId')}" th:errors="*{clientId}" class="error-message"></div>-->
 
     <label for="accountType">Account Type:</label>
     <input type="text" name="accountType" id="accountType" required><br>
-<!--    <div th:if="${#fields.hasErrors('accountType')}" th:errors="*{accountType}" class="error-message"></div>-->
 
     <label for="currencyCode">Currency Code:</label>
     <input type="text" name="currencyCode" id="currencyCode" required><br>
-<!--    <div th:if="${#fields.hasErrors('currencyCode')}" th:errors="*{currencyCode}" class="error-message"></div>-->
 
     <input type="submit" value="Submit">
 </form>
-
+<a class="link" th:href="@{/web}">Back to main menu</a>
 </body>
 </html>

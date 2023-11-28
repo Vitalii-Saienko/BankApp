@@ -197,6 +197,8 @@
                         <exclude>com/example/bankapp/exception/**</exclude>
                         <exclude>com/example/bankapp/security/**</exclude>
                         <exclude>com/example/bankapp/BankAppApplication.class</exclude>
+                        <exclude>com/example/bankapp/controller/mvc/**</exclude>
+
                     </excludes>
                 </configuration>
             </plugin>

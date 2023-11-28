@@ -1,0 +1,35 @@
+body {
+    background-color: #aba8a8; /* Светло-серый цвет фона */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.link-container {
+    text-align: center;
+}
+
+.error-message {
+    padding: 20px; /* Расстояние 20px внутри блока ссылки */
+    color: #000; /* Черный цвет текста ссылки */
+    border: 2px solid #090909; /* 2px рамка вокруг ссылки с серым цветом */
+    margin: 10px; /* Расстояние между блоками ссылок */
+    font-size: 13px; /* Размер шрифта 15px */
+    position: relative; /* Добавляем относительное позиционирование */
+    transition: background-color 0.3s; /* Плавное изменение цвета фона при наведении */
+}
+
+.link {
+    display: block; /* Делаем ссылки блочными элементами, чтобы они шли друг под другом */
+    padding: 20px; /* Расстояние 20px внутри блока ссылки */
+    color: #000; /* Черный цвет текста ссылки */
+    border: 2px solid #090909; /* 2px рамка вокруг ссылки с серым цветом */
+    margin: 10px; /* Расстояние между блоками ссылок */
+    font-size: 23px; /* Размер шрифта 23px */
+    max-width: 500px;
+    cursor: pointer; /* Изменение курсора на указатель при наведении */
+    position: relative; /* Добавляем относительное позиционирование */
+    transition: background-color 0.3s; /* Плавное изменение цвета фона при наведении */
+}

@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Error</title>
+    <link rel="stylesheet" th:href="@{/styles_error_success_pages.css}">
 </head>
 <body>
   <div class="link-container">
     <a class="link" th:href="@{/web}">Operation failed! Back to main menu</a>
     <div th:if="${not #strings.isEmpty(error)}" class="error-message">
-      <p th:text="${error}" style="color: red"></p>
+      <p th:text="${error}" style="color: #090909"></p>
     </div>
   </div>
 </body>

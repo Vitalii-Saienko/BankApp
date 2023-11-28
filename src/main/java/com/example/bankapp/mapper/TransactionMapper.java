@@ -5,6 +5,7 @@ import com.example.bankapp.dto.TransactionDto;
 import com.example.bankapp.entity.Account;
 import com.example.bankapp.entity.Transaction;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
@@ -15,7 +16,14 @@ import java.util.Set;
 @Component
 public interface TransactionMapper {
 
+    @Mapping(target = "debitAccountId", expression = "java(mapAccountId(transaction.getDebitAccountId()))")
+    @Mapping(target = "creditAccountId", expression = "java(mapAccountId(transaction.getCreditAccountId()))")
     TransactionDto transactionToTransactionDto(Transaction transaction);
+
+    default String mapAccountId(Account accountId) {
+        // Логика преобразования AccountId в строку
+        return (accountId != null) ? accountId.getAccountUUID().toString() : null;
+    }
 
     Transaction transactionRequestToTransaction(TransactionCreationRequestDto newTransaction);
 

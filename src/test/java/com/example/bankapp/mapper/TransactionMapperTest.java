@@ -36,8 +36,6 @@ class TransactionMapperTest {
         transaction.setTransactionStatus(TransactionStatus.APPROVED);
         transaction.setDescription("Test");
         transaction.setAmount(BigDecimal.valueOf(1000));
-        transaction.setDebitAccountId(new Account());
-        transaction.setCreditAccountId(new Account());
 
         TransactionDto transactionDto = transactionMapper.transactionToTransactionDto(transaction);
 
@@ -66,8 +64,6 @@ class TransactionMapperTest {
         transaction.setTransactionStatus(TransactionStatus.APPROVED);
         transaction.setDescription("Test");
         transaction.setAmount(BigDecimal.valueOf(1000));
-        transaction.setDebitAccountId(new Account());
-        transaction.setCreditAccountId(new Account());
         transactions.add(transaction);
 
         Set<TransactionDto> transactionDto = transactionMapper.transactionsToTransactionDto(transactions);
