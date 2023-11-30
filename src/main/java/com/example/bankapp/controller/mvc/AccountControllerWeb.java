@@ -30,7 +30,7 @@ public class AccountControllerWeb {
         return "account-create";
     }
 
-        @PostMapping(value = "/create", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
     public String createAccount(@ModelAttribute("accountCreationRequestDto") @Valid AccountCreationRequestDto accountDTO, Model model) {
         try {
